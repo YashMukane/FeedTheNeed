@@ -11,7 +11,10 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   String name = "";
   bool changeButton = false;
-
+  late String email;
+  //TextController to read text entered in text field
+  TextEditingController password = TextEditingController();
+  TextEditingController confirmpassword = TextEditingController();
   moveToHome(BuildContext context) async {
     if (_formkey.currentState!.validate()) {
       setState(() {
@@ -88,7 +91,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(15, 5, 10, 15),
                       child: TextFormField(
-                        obscureText: true,
+                        controller: password,
+                        keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           icon: Icon(Icons.lock),
                           hintText: "Enter Password",
@@ -96,9 +100,31 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return ("Password cannot be empty!");
-                          } else if (value.length < 6) {
-                            return ("Password length should be at east 6!");
+                            return 'Please Enter Password';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 5, 10, 15),
+                      child: TextFormField(
+                        controller: confirmpassword,
+                        obscureText: true,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          icon: Icon(Icons.lock),
+                          hintText: "Enter Confirmed Password",
+                          labelText: "Confirmed Password",
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please re-enter password';
+                          }
+                          print(password.text);
+                          print(confirmpassword.text);
+                          if (password.text != confirmpassword.text) {
+                            return "Re-enter Password does not match";
                           }
                           return null;
                         },
@@ -112,10 +138,10 @@ class _RegisterPageState extends State<RegisterPage> {
                           hintText: "Enter Phone Number",
                           labelText: "Phone Number",
                         ),
-                        validator: (finalvalue) {
-                          if (finalvalue!.isEmpty) {
+                        validator: (value) {
+                          if (value!.isEmpty) {
                             return ("Phone number cannot be empty!");
-                          } else if (finalvalue.length < 10) {
+                          } else if (value.length < 10) {
                             return ("Number length should be at east 10!");
                           }
                           return null;
@@ -125,16 +151,24 @@ class _RegisterPageState extends State<RegisterPage> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(15, 5, 10, 15),
                       child: TextFormField(
+                        keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           icon: Icon(Icons.email_sharp),
                           hintText: "Enter Email",
                           labelText: "Email",
                         ),
-                        validator: (finalvalue) {
-                          if (finalvalue!.isEmpty) {
-                            return ("Email cannot be empty!");
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please a Enter';
+                          }
+                          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                              .hasMatch(value)) {
+                            return 'Please enter valid Email';
                           }
                           return null;
+                        },
+                        onSaved: (value) {
+                          email = value!;
                         },
                       ),
                     ),
@@ -204,39 +238,9 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
+
+  buildInputDecoration(IconData email, String s) {}
 }
-
-// leading: IconButton(
-//   onPressed: () {
-//     Navigator.pop(context);
-//   },
-//   icon: Icon(
-//     Icons.arrow_back_ios,
-//     size: 20,
-//     color: Colors.blue,
-//   ),
-// ),
-
-// SizedBox(
-//   height: 3,
-// ),
-// TextFormField(
-//   obscureText: true,
-//   decoration: InputDecoration(
-//     hintText: "Enter Confirm Password",
-//     labelText: "Confirm Password",
-//   ),
-//   validator: (value) {
-//     if (value!.isEmpty) {
-//       return ("Password cannot be empty!");
-//     }
-//     return null;
-//   },
-// ),
-
-// SizedBox(
-//   height: 3,
-// ),
 
 // Column(
 //   children: <Widget>[

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/utils/routes.dart';
 
@@ -29,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.white,
+      color: Color.fromARGB(255, 255, 255, 255),
       child: SingleChildScrollView(
         child: Form(
           key: _formkey,
@@ -110,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: changeButton
                               ? Icon(
                                   Icons.done,
-                                  color: Colors.white,
+                                  color: Colors.blue,
                                 )
                               : Text(
                                   "LOGIN",
@@ -122,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
 
                           // decoration: BoxDecoration(
-                          //  color: Colors.blue,
+                          //  color: Colors.deepPurpleAccent,
                           // shape: changeButton?BoxShape.circle:BoxShape.rectangle,
 
                           // ),
@@ -130,14 +131,55 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     SizedBox(
-                      height: 5,
+                      height: 10,
                     ),
                     ElevatedButton(
-                        child: Text("Forget Password?"),
-                        style: TextButton.styleFrom(minimumSize: Size(150, 50)),
+                        child: Text(
+                          "Forget Password?",
+                        ),
+                        style: TextButton.styleFrom(
+                          minimumSize: Size(
+                            150,
+                            50,
+                          ),
+                        ),
                         onPressed: () {
                           Navigator.pushNamed(context, MyRoutes.ForgotRoute);
-                        })
+                        }),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "New Here? ",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontStyle: FontStyle.normal,
+                              fontSize: 18,
+                            ),
+                            // textAlign: TextAlign.left,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, MyRoutes.RegisterRoute);
+                            },
+                            child: Text(
+                              " Register Now",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 20,
+                                  color: Colors.blue),
+                              //  textAlign: TextAlign.left,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
