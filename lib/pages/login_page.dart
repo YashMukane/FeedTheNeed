@@ -125,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                       height: 5,
                     ),
                     ElevatedButton(
-                        child: Text("Fogot Password?"),
+                        child: Text("Forget Password?"),
                         style: TextButton.styleFrom(minimumSize: Size(150, 50)),
                         onPressed: () {
                           Navigator.pushNamed(context, MyRoutes.ForgotRoute);
