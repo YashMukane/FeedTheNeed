@@ -9,210 +9,195 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  String name = "";
+  bool changeButton = false;
+
+  moveToHome(BuildContext context) async {
+    if (_formkey.currentState!.validate()) {
+      setState(() {
+        changeButton = true;
+      });
+      await Future.delayed(Duration(seconds: 1));
+      await Navigator.pushNamed(context, MyRoutes.ButtomBarRoute);
+      setState(() {
+        changeButton = false;
+      });
+    }
+  }
+
+  final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        brightness: Brightness.light,
-        backgroundColor: Colors.white,
-
-        // leading: IconButton(
-        //   onPressed: () {
-        //     Navigator.pop(context);
-        //   },
-        //   icon: Icon(
-        //     Icons.arrow_back_ios,
-        //     size: 20,
-        //     color: Colors.blue,
-        //   ),
-        // ),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 40),
-          height: MediaQuery.of(context).size.height - 50,
-          width: double.infinity,
+    return Material(
+      color: Colors.white,
+      child: SingleChildScrollView(
+        child: Form(
+          key: _formkey,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Text(
-                    "Sign up",
-                    style: TextStyle(
-                        fontSize: 30,
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.normal),
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+                child: Text(
+                  "Sign Up",
+                  style: TextStyle(
+                    fontSize: 35,
+                    color: Colors.blue,
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.bold,
                   ),
-                  SizedBox(
-                    height: 20,
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                child: Text(
+                  "Feed The Need Welcomes You",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.blue,
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.bold,
                   ),
-                  Text(
-                    "Feed The Need Welcomes YOU! ",
-                    style: TextStyle(fontSize: 20, color: Colors.blue),
-                  )
-                ],
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.person),
-                  hintText: 'Enter username',
-                  labelText: 'Username',
                 ),
-                onSaved: (String? value) {
-                  // This optional block of code can be used to run
-                  // code when the user saves the form.
-                },
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return ("username cannot be empty!");
-                  } else if (value.length < 6) {
-                    return ("Username length should be at east 6!");
-                  }
-                  return null;
-                },
               ),
-              TextFormField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  icon: Icon(Icons.password),
-                  hintText: "Enter Password",
-                  labelText: "Password",
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return ("Password cannot be empty!");
-                  } else if (value.length < 8) {
-                    return ("Password length should be at east 8!");
-                  }
-                  return null;
-                },
-              ),
-              // TextFormField(
-              //   obscureText: true,
-              //   decoration: InputDecoration(
-              //     hintText: "Enter Confirm Password",
-              //     labelText: "Confirm Password",
-              //   ),
-              //   validator: (value) {
-              //     if (value!.isEmpty) {
-              //       return ("Password cannot be empty!");
-              //     }
-              //     return null;
-              //   },
-              // ),
-
-              TextFormField(
-                decoration: InputDecoration(
-                  icon: Icon(Icons.phonelink),
-                  hintText: "Enter Phone Number",
-                  labelText: "Phone Number",
-                ),
-                validator: (finalvalue) {
-                  if (finalvalue!.isEmpty) {
-                    return ("Phone number cannot be empty!");
-                  } else if (finalvalue.length < 10) {
-                    return ("Number length should be at east 10!");
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  icon: Icon(Icons.email_sharp),
-                  hintText: "Enter Email",
-                  labelText: "Email",
-                ),
-                validator: (finalvalue) {
-                  if (finalvalue!.isEmpty) {
-                    return ("Email cannot be empty!");
-                  }
-                  return null;
-                },
-              ),
-
-              // Column(
-              //   children: <Widget>[
-              //     inputFile(label: "Username"),
-              //     inputFile(label: "Email"),
-              //     inputFile(label: "Password", obscureText: true),
-              //     inputFile(label: "Confirm Password ", obscureText: true),
-              //     inputFile(label: "Phone Number "),
-              //   ],
-              // ),
-              // Container(
-              //   padding: EdgeInsets.only(top: 3, left: 3),
-              //   decoration: BoxDecoration(
-              //       borderRadius: BorderRadius.circular(50),
-              //       border: Border(
-              //         bottom: BorderSide(color: Colors.black),
-              //         top: BorderSide(color: Colors.black),
-              //         left: BorderSide(color: Colors.black),
-              //         right: BorderSide(color: Colors.black),
-              //       )),
-              //   child: MaterialButton(
-              //     minWidth: double.infinity,
-              //     height: 60,
-              //     onPressed: () {},
-              //     color: Color(0xff0095FF),
-              //     elevation: 0,
-              //     shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(35)),
-              //     child: Text(
-              //       "Sign up",
-              //       style: TextStyle(
-              //         fontStyle: FontStyle.normal,
-              //         fontWeight: FontWeight.w800,
-              //         fontSize: 20,
-              //         color: Colors.white,
-              //       ),
-              //     ),
-              //   ),
-              // ),
-
-              ElevatedButton(
-                  child: Text(
-                    " Sign up",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 22,
-                        color: Colors.white),
-                  ),
-                  style: TextButton.styleFrom(minimumSize: Size(150, 50)),
-                  onPressed: () {
-                    Navigator.pushNamed(context, MyRoutes.ButtomBarRoute);
-                  }),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "Already have an account ?",
-                    style: TextStyle(
-                      fontStyle: FontStyle.normal,
-                      fontSize: 19,
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 5, 10, 15),
+                      child: TextFormField(
+                          decoration: InputDecoration(
+                            icon: Icon(Icons.person),
+                            hintText: "Enter Username",
+                            labelText: "Username",
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return ("Username cannot be empty!");
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            name = value;
+                            setState(() {});
+                          }),
                     ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, MyRoutes.loginRoute);
-                    },
-                    child: Text(
-                      " Login",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 24,
-                          color: Colors.blue),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 5, 10, 15),
+                      child: TextFormField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          icon: Icon(Icons.lock),
+                          hintText: "Enter Password",
+                          labelText: "Password",
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return ("Password cannot be empty!");
+                          } else if (value.length < 6) {
+                            return ("Password length should be at east 6!");
+                          }
+                          return null;
+                        },
+                      ),
                     ),
-                  )
-                ],
-              )
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 5, 10, 15),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          icon: Icon(Icons.local_phone),
+                          hintText: "Enter Phone Number",
+                          labelText: "Phone Number",
+                        ),
+                        validator: (finalvalue) {
+                          if (finalvalue!.isEmpty) {
+                            return ("Phone number cannot be empty!");
+                          } else if (finalvalue.length < 10) {
+                            return ("Number length should be at east 10!");
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 5, 10, 15),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          icon: Icon(Icons.email_sharp),
+                          hintText: "Enter Email",
+                          labelText: "Email",
+                        ),
+                        validator: (finalvalue) {
+                          if (finalvalue!.isEmpty) {
+                            return ("Email cannot be empty!");
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Material(
+                      color: Colors.blue,
+                      borderRadius:
+                          BorderRadius.circular(changeButton ? 50 : 8),
+                      child: InkWell(
+                        onTap: () => moveToHome(context),
+                        child: AnimatedContainer(
+                          duration: Duration(milliseconds: 180),
+                          width: changeButton ? 50 : 150,
+                          height: 45,
+                          alignment: Alignment.center,
+                          child: changeButton
+                              ? Icon(
+                                  Icons.done,
+                                  color: Colors.white,
+                                )
+                              : Text(
+                                  "Sign Up",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 22,
+                                  ),
+                                ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "Already have an account ?",
+                          style: TextStyle(
+                            fontStyle: FontStyle.normal,
+                            fontSize: 19,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, MyRoutes.loginRoute);
+                          },
+                          child: Text(
+                            " Login",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 22,
+                                color: Colors.blue),
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -221,7 +206,81 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 }
 
-// we will be creating a widget for text field
+// leading: IconButton(
+//   onPressed: () {
+//     Navigator.pop(context);
+//   },
+//   icon: Icon(
+//     Icons.arrow_back_ios,
+//     size: 20,
+//     color: Colors.blue,
+//   ),
+// ),
+
+// SizedBox(
+//   height: 3,
+// ),
+// TextFormField(
+//   obscureText: true,
+//   decoration: InputDecoration(
+//     hintText: "Enter Confirm Password",
+//     labelText: "Confirm Password",
+//   ),
+//   validator: (value) {
+//     if (value!.isEmpty) {
+//       return ("Password cannot be empty!");
+//     }
+//     return null;
+//   },
+// ),
+
+// SizedBox(
+//   height: 3,
+// ),
+
+// Column(
+//   children: <Widget>[
+//     inputFile(label: "Username"),
+//     inputFile(label: "Email"),
+//     inputFile(label: "Password", obscureText: true),
+//     inputFile(label: "Confirm Password ", obscureText: true),
+//     inputFile(label: "Phone Number "),
+//   ],
+// ),
+// Container(
+//   padding: EdgeInsets.only(top: 3, left: 3),
+//   decoration: BoxDecoration(
+//       borderRadius: BorderRadius.circular(50),
+//       border: Border(
+//         bottom: BorderSide(color: Colors.black),
+//         top: BorderSide(color: Colors.black),
+//         left: BorderSide(color: Colors.black),
+//         right: BorderSide(color: Colors.black),
+//       )),
+//   child: MaterialButton(
+//     minWidth: double.infinity,
+//     height: 60,
+//     onPressed: () {},
+//     color: Color(0xff0095FF),
+//     elevation: 0,
+//     shape: RoundedRectangleBorder(
+//         borderRadius: BorderRadius.circular(35)),
+//     child: Text(
+//       "Sign up",
+//       style: TextStyle(
+//         fontStyle: FontStyle.normal,
+//         fontWeight: FontWeight.w800,
+//         fontSize: 20,
+//         color: Colors.white,
+//       ),
+//     ),
+//   ),
+// ),
+
+// SizedBox(
+//   height: 5,
+// ),
+
 Widget inputFile({label, obscureText = false}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,

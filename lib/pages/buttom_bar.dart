@@ -22,10 +22,6 @@ class _ButtomBarState extends State<ButtomBar> {
   ];
   @override
   Widget build(BuildContext context) => Scaffold(
-        // appBar: AppBar(
-        //   title: Text('DashBoard'),
-        //   centerTitle: true,
-        // ),
         body: Screens[currentIndex],
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,

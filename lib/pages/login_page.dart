@@ -18,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
         changeButton = true;
       });
       await Future.delayed(Duration(seconds: 1));
-      await Navigator.pushNamed(context, MyRoutes.HomeRoute);
+      await Navigator.pushNamed(context, MyRoutes.ButtomBarRoute);
       setState(() {
         changeButton = false;
       });
@@ -55,38 +55,46 @@ class _LoginPageState extends State<LoginPage> {
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                 child: Column(
                   children: [
-                    TextFormField(
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 5, 10, 15),
+                      child: TextFormField(
+                          decoration: InputDecoration(
+                            icon: Icon(Icons.person),
+                            hintText: "Enter Username",
+                            labelText: "Username",
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return ("Username cannot be empty!");
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            name = value;
+                            setState(() {});
+                          }),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 5, 10, 15),
+                      child: TextFormField(
+                        obscureText: true,
                         decoration: InputDecoration(
-                          hintText: "Enter Username",
-                          labelText: "Username",
+                          icon: Icon(Icons.lock),
+                          hintText: "Enter Password",
+                          labelText: "Password",
                         ),
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return ("Username cannot be empty!");
+                            return ("Password cannot be empty!");
+                          } else if (value.length < 6) {
+                            return ("Password length should be at east 6!");
                           }
                           return null;
                         },
-                        onChanged: (value) {
-                          name = value;
-                          setState(() {});
-                        }),
-                    TextFormField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        hintText: "Enter Password",
-                        labelText: "Password",
                       ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return ("Password cannot be empty!");
-                        } else if (value.length < 6) {
-                          return ("Password length should be at east 6!");
-                        }
-                        return null;
-                      },
                     ),
                     SizedBox(
-                      height: 30,
+                      height: 60,
                     ),
                     Material(
                       color: Colors.blue,
