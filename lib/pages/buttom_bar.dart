@@ -25,7 +25,7 @@ class _ButtomBarState extends State<ButtomBar> {
         body: Screens[currentIndex],
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.deepPurple,
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white70,
           //showSelectedLabels: false,

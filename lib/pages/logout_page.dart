@@ -10,6 +10,7 @@ class _LogOutPage extends State<LogOutPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.deepPurple,
           title: Text('Log Out'),
         ),
         body: Center(child: Text('Log Out', style: TextStyle(fontSize: 60))),

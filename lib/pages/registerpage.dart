@@ -11,6 +11,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   String name = "";
   bool changeButton = false;
+  bool _isObscure = true;
   late String email;
   //TextController to read text entered in text field
   TextEditingController password = TextEditingController();
@@ -91,16 +92,31 @@ class _RegisterPageState extends State<RegisterPage> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(15, 5, 10, 15),
                       child: TextFormField(
+                        obscureText: _isObscure,
                         controller: password,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           icon: Icon(Icons.lock),
                           hintText: "Enter Password",
                           labelText: "Password",
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _isObscure
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _isObscure = !_isObscure;
+                              });
+                            },
+                          ),
                         ),
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return 'Please Enter Password';
+                            return ("Please Enter Password");
+                          } else if (value.length < 8) {
+                            return ("Number length should be at east 10!");
                           }
                           return null;
                         },
@@ -109,14 +125,28 @@ class _RegisterPageState extends State<RegisterPage> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(15, 5, 10, 15),
                       child: TextFormField(
+                        obscureText: _isObscure,
                         controller: confirmpassword,
-                        obscureText: true,
+                        // obscureText: true,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           icon: Icon(Icons.lock),
                           hintText: "Enter Confirmed Password",
                           labelText: "Confirmed Password",
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _isObscure
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _isObscure = !_isObscure;
+                              });
+                            },
+                          ),
                         ),
+
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Please re-enter password';
@@ -138,12 +168,14 @@ class _RegisterPageState extends State<RegisterPage> {
                           hintText: "Enter Phone Number",
                           labelText: "Phone Number",
                         ),
+                        keyboardType: TextInputType.number,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return ("Phone number cannot be empty!");
                           } else if (value.length < 10) {
                             return ("Number length should be at east 10!");
                           }
+
                           return null;
                         },
                       ),

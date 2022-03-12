@@ -10,6 +10,7 @@ class _NotificationPage extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.deepPurple,
           title: Text('Notifications'),
         ),
         body:

@@ -10,6 +10,7 @@ class _CollectionPage extends State<CollectionPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.deepPurple,
           title: Text('Collections'),
         ),
         body: Center(child: Text('Collection', style: TextStyle(fontSize: 60))),

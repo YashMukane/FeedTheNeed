@@ -12,6 +12,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String name = "";
   bool changeButton = false;
+  bool _isObscure = true;
 
   moveToHome(BuildContext context) async {
     if (_formkey.currentState!.validate()) {
@@ -77,23 +78,57 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(15, 5, 10, 15),
-                      child: TextFormField(
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          icon: Icon(Icons.lock),
-                          hintText: "Enter Password",
-                          labelText: "Password",
+                      child: Center(
+                        child: TextFormField(
+                          obscureText: _isObscure,
+                          decoration: InputDecoration(
+                            icon: Icon(Icons.lock),
+                            hintText: "Enter Password",
+                            labelText: "Password",
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _isObscure
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _isObscure = !_isObscure;
+                                });
+                              },
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return ("Please Enter Password");
+                            } else if (value.length < 8) {
+                              return ("Number length should be at east 10!");
+                            }
+                            return null;
+                          },
                         ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return ("Password cannot be empty!");
-                          } else if (value.length < 6) {
-                            return ("Password length should be at east 6!");
-                          }
-                          return null;
-                        },
                       ),
                     ),
+
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(15, 5, 10, 15),
+                    //   child: TextFormField(
+                    //     obscureText: true,
+                    //     decoration: InputDecoration(
+                    //       icon: Icon(Icons.lock),
+                    //       hintText: "Enter Password",
+                    //       labelText: "Password",
+                    //     ),
+                    //     validator: (value) {
+                    //       if (value!.isEmpty) {
+                    //         return ("Password cannot be empty!");
+                    //       } else if (value.length < 6) {
+                    //         return ("Password length should be at east 6!");
+                    //       }
+                    //       return null;
+                    //     },
+                    //   ),
+                    // ),
                     SizedBox(
                       height: 60,
                     ),
