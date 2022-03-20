@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/pages/Maps.dart';
+import 'package:myapp/pages/SenderPage.dart';
 import 'package:myapp/pages/buttom_bar.dart';
 import 'package:myapp/pages/home_page.dart';
 import 'package:myapp/pages/login_page.dart';
@@ -43,6 +45,8 @@ class MyApp extends StatelessWidget {
         MyRoutes.ForgotRoute: (context) => FogotPass(),
         MyRoutes.HomeRoute: (context) => HomePage(),
         MyRoutes.ButtomBarRoute: (context) => ButtomBar(),
+        MyRoutes.SenderRoute: (context) => SenderPage(),
+        MyRoutes.MapsRoute: (context) => Maps(),
       },
     );
   }

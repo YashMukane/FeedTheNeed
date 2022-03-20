@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/pages/collection_page.dart';
-
+import 'package:myapp/pages/favourite_page.dart';
 import 'package:myapp/pages/home_page.dart';
 import 'package:myapp/pages/logout_page.dart';
 import 'package:myapp/pages/notification_page.dart';
@@ -15,7 +14,7 @@ class _ButtomBarState extends State<ButtomBar> {
   int currentIndex = 0;
   final Screens = [
     HomePage(),
-    CollectionPage(),
+    FavouritePage(),
     ProfilePage(),
     NotificationPage(),
     LogOutPage(),
@@ -36,17 +35,14 @@ class _ButtomBarState extends State<ButtomBar> {
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Home',
-              //backgroundColor: Colors.blue,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.collections),
-              label: 'Collection',
-              //backgroundColor: Colors.blue,
+              icon: Icon(Icons.favorite),
+              label: 'Favourite',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
               label: 'Profile',
-              //backgroundColor: Colors.blue,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.notifications),
@@ -56,7 +52,6 @@ class _ButtomBarState extends State<ButtomBar> {
             BottomNavigationBarItem(
               icon: Icon(Icons.logout_sharp),
               label: 'Log Out',
-              //backgroundColor: Colors.blue,
             ),
           ],
         ),
