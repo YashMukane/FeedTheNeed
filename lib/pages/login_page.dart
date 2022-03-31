@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:magic_sdk/magic_sdk.dart';
+import 'package:myapp/pages/home_page.dart';
 import 'package:myapp/utils/routes.dart';
 
 class LoginPage extends StatefulWidget {
@@ -13,6 +15,8 @@ class _LoginPageState extends State<LoginPage> {
   String name = "";
   bool changeButton = false;
   bool _isObscure = true;
+  Magic magic = Magic.instance;
+  final textController = TextEditingController(text: '+91');
 
   moveToHome(BuildContext context) async {
     if (_formkey.currentState!.validate()) {
@@ -57,58 +61,58 @@ class _LoginPageState extends State<LoginPage> {
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                 child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 5, 10, 15),
-                      child: TextFormField(
-                          decoration: InputDecoration(
-                            icon: Icon(Icons.person),
-                            hintText: "Enter Username",
-                            labelText: "Username",
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return ("Username cannot be empty!");
-                            }
-                            return null;
-                          },
-                          onChanged: (value) {
-                            name = value;
-                            setState(() {});
-                          }),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 5, 10, 15),
-                      child: Center(
-                        child: TextFormField(
-                          obscureText: _isObscure,
-                          decoration: InputDecoration(
-                            icon: Icon(Icons.lock),
-                            hintText: "Enter Password",
-                            labelText: "Password",
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                _isObscure
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  _isObscure = !_isObscure;
-                                });
-                              },
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return ("Please Enter Password");
-                            } else if (value.length < 8) {
-                              return ("Number length should be at east 10!");
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(15, 5, 10, 15),
+                    //   child: TextFormField(
+                    //       decoration: InputDecoration(
+                    //         icon: Icon(Icons.person),
+                    //         hintText: "Enter Username",
+                    //         labelText: "Username",
+                    //       ),
+                    //       validator: (value) {
+                    //         if (value!.isEmpty) {
+                    //           return ("Username cannot be empty!");
+                    //         }
+                    //         return null;
+                    //       },
+                    //       onChanged: (value) {
+                    //         name = value;
+                    //         setState(() {});
+                    //       }),
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(15, 5, 10, 15),
+                    //   child: Center(
+                    //     child: TextFormField(
+                    //       obscureText: _isObscure,
+                    //       decoration: InputDecoration(
+                    //         icon: Icon(Icons.lock),
+                    //         hintText: "Enter Password",
+                    //         labelText: "Password",
+                    //         suffixIcon: IconButton(
+                    //           icon: Icon(
+                    //             _isObscure
+                    //                 ? Icons.visibility
+                    //                 : Icons.visibility_off,
+                    //           ),
+                    //           onPressed: () {
+                    //             setState(() {
+                    //               _isObscure = !_isObscure;
+                    //             });
+                    //           },
+                    //         ),
+                    //       ),
+                    //       validator: (value) {
+                    //         if (value!.isEmpty) {
+                    //           return ("Please Enter Password");
+                    //         } else if (value.length < 8) {
+                    //           return ("Number length should be at east 10!");
+                    //         }
+                    //         return null;
+                    //       },
+                    //     ),
+                    //   ),
+                    // ),
 
                     // Padding(
                     //   padding: const EdgeInsets.fromLTRB(15, 5, 10, 15),
@@ -129,6 +133,43 @@ class _LoginPageState extends State<LoginPage> {
                     //     },
                     //   ),
                     // ),
+                    Center(
+                        child:
+                        Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                            child: TextFormField(
+                              controller: textController,
+                              decoration: const InputDecoration(
+                                hintText: 'Enter your number',
+                              ),
+                              validator: (String? value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your phone number';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          TextButton(
+                            style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                            ),
+                            onPressed: () async {
+                              var token =
+                              await magic.auth.loginWithSMS(phoneNumber: textController.text);
+                              debugPrint('token, $token');
+
+                              if (token.isNotEmpty) {
+                                /// Navigate to your home page
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) => const HomePage()));
+                              }
+                            },
+                            child: const Text('Login With Phone Number'),
+                          ),
+                        ])
+                    ),
                     SizedBox(
                       height: 60,
                     ),
