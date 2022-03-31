@@ -47,7 +47,7 @@ class _ButtomBarState extends State<ButtomBar> {
             BottomNavigationBarItem(
               icon: Icon(Icons.notifications),
               label: 'Notification',
-              backgroundColor: Colors.blue,
+              
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.logout_sharp),

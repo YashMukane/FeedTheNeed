@@ -24,7 +24,9 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               Navigator.pushNamed(context, MyRoutes.SenderRoute);
             },
-            child: const Text('Donate'),
+            child: 
+            
+            const Text('Donate'),
           ),
           const SizedBox(height: 30),
           ElevatedButton(

@@ -13,7 +13,6 @@ class _ProfilePage extends State<ProfilePage> {
           backgroundColor: Colors.deepPurple,
           title: Text('My Profile'),
         ),
-        body:
-            Center(child: Text('User Profile', style: TextStyle(fontSize: 60))),
+
       );
 }
