@@ -6,4 +6,7 @@ class MyRoutes {
   static String ButtomBarRoute = "/buttombar";
   static String SenderRoute = "/Sender";
   static String MapsRoute = "/Maps";
+  static String ProfileRoute = "Profile";
+  static String BodyRoute = "/Body";
+  
 }
